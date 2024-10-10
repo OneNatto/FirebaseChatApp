@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.firebasechatapp.ui.auth.LoginScreen
+import com.example.firebasechatapp.ui.auth.RegisterScreen
 import com.example.firebasechatapp.ui.theme.FirebaseChatAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirebaseChatAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(modifier = Modifier.padding(innerPadding))
+                    RegisterScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

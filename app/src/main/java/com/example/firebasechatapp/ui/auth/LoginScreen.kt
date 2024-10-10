@@ -17,42 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.firebasechatapp.ui.auth.components.FormWidget
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier
     ) {
-
-    var emailText by remember{ mutableStateOf("") }
-    var passwordText by remember{ mutableStateOf("") }
-
-
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("ログイン")
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            value = emailText,
-            label = { Text("Eメール") },
-            onValueChange = {emailText = it},
-            modifier = Modifier.fillMaxWidth(0.85F)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        TextField(
-            value = passwordText,
-            label = { Text("パスワード") },
-            onValueChange = {passwordText = it},
-            modifier = Modifier.fillMaxWidth(0.85F)
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            modifier = Modifier.fillMaxWidth(0.6F),
-            onClick = {}
-        ) {
-            Text("ログイン")
-        }
-    }
+    FormWidget(
+        modifier = modifier,
+        screenLabel = "ログイン",
+        onClickedFunction = {}
+    )
 }
