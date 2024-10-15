@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "31462296720",
+    "project_id": "fir-chatappbykotlin-43459",
+    "storage_bucket": "fir-chatappbykotlin-43459.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31462296720:android:927ad93348c9ca00281c15",
+        "android_client_info": {
+          "package_name": "com.example.firebasechatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-A_6WV_m03TQ02WHofkriJOfVD-kKOKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
