@@ -15,8 +15,8 @@ fun RegisterScreen(
     FormWidget(
         modifier = modifier,
         formType = FormType.REGISTER,
-        submitButtonFunction = { email, password ->
-            viewModel.register(email,password)
+        submitButtonFunction = { username, email, password ->
+            viewModel.register(username ?: "",email,password)
         },
         switchScreenFunction = switchScreenFunction
     )

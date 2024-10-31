@@ -16,7 +16,7 @@ fun LoginScreen(
     FormWidget(
         modifier = modifier,
         formType = FormType.LOGIN,
-        submitButtonFunction = { email, password ->
+        submitButtonFunction = { _,email, password ->
             viewModel.login(email,password)
         },
         switchScreenFunction = switchScreenFunction
