@@ -3,6 +3,7 @@ package com.example.firebasechatapp.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firebasechatapp.data.auth.FirebaseAuthService
+import com.example.firebasechatapp.data.firestore.FirestoreService
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,12 +11,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
-class AuthViewModel(): ViewModel() {
-    val authService = FirebaseAuthService()
+class AuthViewModel: ViewModel() {
+    private val authService = FirebaseAuthService()
+    private val firestoreService = FirestoreService()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    //ユーザーがログインしているか
     private val _isUserLoggedInState = MutableStateFlow(false)
     val isUserLoggedInState: StateFlow<Boolean> = _isUserLoggedInState.asStateFlow()
+
 
     init {
         _isUserLoggedInState.value = auth.currentUser != null
@@ -32,10 +36,19 @@ class AuthViewModel(): ViewModel() {
         }
     }
 
-    fun register(email: String,password: String) {
+    fun register(
+        username: String,
+        email: String,
+        password: String
+    ) {
         viewModelScope.launch {
             val result = authService.userRegister(email, password)
             if(result.isSuccess) {
+                val currentUser = auth.currentUser
+                firestoreService.createUser(
+                    uid = currentUser!!.uid,
+                    username = username
+                )
                 _isUserLoggedInState.value = true
             } else {
                 print(result.exceptionOrNull())

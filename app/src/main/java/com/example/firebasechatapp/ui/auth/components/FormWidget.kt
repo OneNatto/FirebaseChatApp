@@ -29,10 +29,11 @@ enum class FormType {
 fun FormWidget(
     modifier: Modifier = Modifier,
     formType: FormType,
-    submitButtonFunction:(String,String) -> Unit,
+    submitButtonFunction:(String?,String,String) -> Unit,
     switchScreenFunction: () -> Unit
 ) {
 
+    var usernameText by remember{ mutableStateOf("") }
     var emailText by remember{ mutableStateOf("") }
     var passwordText by remember{ mutableStateOf("") }
 
@@ -46,6 +47,15 @@ fun FormWidget(
             text = if(formType == FormType.LOGIN) "ログイン画面" else "アカウント登録画面"
         )
         Spacer(modifier = Modifier.height(20.dp))
+        if(formType == FormType.REGISTER) {
+            TextField(
+                value = usernameText,
+                label = { Text("ユーザー名") },
+                onValueChange = {usernameText = it},
+                modifier = Modifier.fillMaxWidth(0.85F)
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+        }
         TextField(
             value = emailText,
             label = { Text("Eメール") },
@@ -63,7 +73,13 @@ fun FormWidget(
         Button(
             modifier = Modifier.fillMaxWidth(0.6F),
             onClick = {
-                submitButtonFunction(emailText,passwordText)
+                if(formType == FormType.REGISTER) {
+                    submitButtonFunction(usernameText,emailText, passwordText)
+
+                } else {
+                    submitButtonFunction(null,emailText, passwordText)
+                }
+                usernameText = ""
                 emailText = ""
                 passwordText = ""
             }

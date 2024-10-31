@@ -70,11 +70,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
 
     //Bom For Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation(platform(libs.firebase.bom))
 
     //FirebaseAuth
     implementation(libs.firebase.auth)
+
+    //FireStore
+    implementation(libs.firebase.firestore.ktx)
+
 }
