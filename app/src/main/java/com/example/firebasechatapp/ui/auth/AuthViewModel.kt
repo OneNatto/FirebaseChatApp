@@ -4,16 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firebasechatapp.data.auth.FirebaseAuthService
 import com.example.firebasechatapp.data.firestore.FirestoreService
+import com.example.firebasechatapp.ui.chat.FirestoreRepository
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class AuthViewModel: ViewModel() {
-    private val authService = FirebaseAuthService()
-    private val firestoreService = FirestoreService()
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val authRepository: FirebaseAuthRepository,
+    private val firestoreRepository: FirestoreRepository
+): ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     //ユーザーがログインしているか
@@ -27,7 +31,7 @@ class AuthViewModel: ViewModel() {
 
     fun login(email: String,password: String) {
         viewModelScope.launch {
-            val result = authService.userLogin(email, password)
+            val result = authRepository.userLogin(email, password)
             if(result.isSuccess) {
                 _isUserLoggedInState.value = true
             } else {
@@ -42,10 +46,10 @@ class AuthViewModel: ViewModel() {
         password: String
     ) {
         viewModelScope.launch {
-            val result = authService.userRegister(email, password)
+            val result = authRepository.userRegister(email, password)
             if(result.isSuccess) {
                 val currentUser = auth.currentUser
-                firestoreService.createUser(
+                firestoreRepository.createUser(
                     uid = currentUser!!.uid,
                     username = username
                 )
@@ -57,7 +61,7 @@ class AuthViewModel: ViewModel() {
     }
 
     fun signOut() {
-        authService.signOut()
+        authRepository.signOut()
         _isUserLoggedInState.value = false
     }
 }

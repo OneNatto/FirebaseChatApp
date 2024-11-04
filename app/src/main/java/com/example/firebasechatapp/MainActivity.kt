@@ -15,7 +15,9 @@ import com.example.firebasechatapp.ui.auth.AuthGate
 import com.example.firebasechatapp.ui.auth.LoginScreen
 import com.example.firebasechatapp.ui.auth.RegisterScreen
 import com.example.firebasechatapp.ui.theme.FirebaseChatAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
