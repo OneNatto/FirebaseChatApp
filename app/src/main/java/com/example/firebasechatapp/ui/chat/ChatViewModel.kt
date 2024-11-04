@@ -5,14 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.firebasechatapp.data.firestore.FirestoreService
 import com.example.firebasechatapp.data.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChatViewModel: ViewModel() {
+@HiltViewModel
+class ChatViewModel @Inject constructor(private val firestoreRepository: FirestoreRepository): ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val firestoreService: FirestoreService = FirestoreService()
 
     //ログインユーザーデータ
     private val _currentUserData = MutableStateFlow<UserModel?>(null)
@@ -39,11 +41,11 @@ class ChatViewModel: ViewModel() {
     }
 
     private suspend fun setCurrentUser() {
-        _currentUserData.value = firestoreService.getUserData(auth.currentUser!!.uid)
+        _currentUserData.value = firestoreRepository.getUserData(auth.currentUser!!.uid)
     }
 
     private suspend fun setUserList() {
-        _userList.value = firestoreService.getOtherUsers(auth.currentUser!!.uid)
+        _userList.value = firestoreRepository.getOtherUsers(auth.currentUser!!.uid)
     }
 
 }

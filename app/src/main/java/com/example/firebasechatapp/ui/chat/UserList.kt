@@ -18,12 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.firebasechatapp.ui.auth.AuthViewModel
 import com.example.firebasechatapp.ui.chat.components.UserCard
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun UserList(
     modifier: Modifier = Modifier,
-    authViewModel: AuthViewModel = viewModel(),
-    chatViewModel: ChatViewModel = viewModel()
+    authViewModel: AuthViewModel = hiltViewModel(),
+    chatViewModel: ChatViewModel = hiltViewModel()
 ) {
     val currentUser = chatViewModel.currentUserData.collectAsState()
     //ユーザーリスト
